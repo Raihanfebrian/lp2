@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0 to 1 Jualan Online - E-Book untuk Pemula</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f0fdf4;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Sticky CTA Mobile */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+        
+        @media (min-width: 768px) {
+            .sticky-cta {
+                display: none;
+            }
+        }
+        
+        /* Button Force Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(5, 150, 105, 0.3);
+        }
+        
+        .btn-primary:active {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        
+        .btn-cta {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        
+        .btn-cta:hover {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fade-in-up,
+            .animate-float,
+            .reveal {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        /* Pattern Background */
+        .pattern-bg {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Card Hover */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.15);
+        }
+        
+        /* Price Strike */
+        .price-strike {
+            position: relative;
+        }
+        
+        .price-strike::after {
+            content: '';
+            position: absolute;
+            left: -5%;
+            top: 50%;
+            width: 110%;
+            height: 3px;
+            background: #ef4444;
+            transform: rotate(-8deg);
+        }
+        
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+        }
+        
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: #10b981;
+            border: 3px solid #f0fdf4;
+            border-radius: 50%;
+            position: absolute;
+            left: -7px;
+            top: 4px;
+        }
+    </style>
+</head>
+<body class="bg-emerald-50 text-gray-800">
+
+    <!-- HERO SECTION -->
+    <section class="w-full pattern-bg min-h-screen flex items-center py-12 px-4">
+        <div class="w-full max-w-2xl mx-auto text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-emerald-100 border border-emerald-200 rounded-full px-4 py-2 mb-6 animate-fade-in-up">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span class="text-emerald-700 text-sm font-medium">Panduan Terlengkap untuk Pemula</span>
+            </div>
+            
+            <!-- Main Headline -->
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6 animate-fade-in-up delay-100">
+                Mulai Jualan Online dari <span class="gradient-text">Nol</span>, Tanpa Modal Besar
+            </h1>
+            
+            <!-- Subheadline -->
+            <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed animate-fade-in-up delay-200">
+                Panduan sistematis membangun bisnis online dari nol. Cocok untuk mahasiswa, pencari kerja, dan siapa saja yang ingin punya penghasilan tambahan.
+            </p>
+            
+            <!-- CTA Button -->
+            <div class="animate-fade-in-up delay-300">
+                <a href="#harga" class="btn-cta inline-block px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl">
+                    Dapatkan E-Book Sekarang
+                </a>
+                <p class="text-gray-500 text-sm mt-3">Akses instan setelah pembayaran</p>
+            </div>
+            
+            <!-- Hero Image -->
+            <div class="mt-12 animate-fade-in-up delay-400">
+                <div class="relative inline-block">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-emerald-200 to-emerald-300 rounded-3xl blur-2xl opacity-40"></div>
+                    <img src="https://placehold.co/500x350/065f46/ffffff?text=E-Book+Cover" alt="E-Book 0 to 1 Jualan Online" class="relative rounded-2xl shadow-2xl w-full max-w-md mx-auto">
+                </div>
+            </div>
+            
+            <!-- Social Proof Quick -->
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-6 animate-fade-in-up delay-400">
+                <div class="flex items-center gap-2">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-emerald-200 border-2 border-white flex items-center justify-center text-xs font-medium text-emerald-700">A</div>
+                        <div class="w-8 h-8 rounded-full bg-emerald-300 border-2 border-white flex items-center justify-center text-xs font-medium text-emerald-800">B</div>
+                        <div class="w-8 h-8 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs font-medium text-white">C</div>
+                    </div>
+                    <span class="text-sm text-gray-600">2,500+ pembaca</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <span class="text-sm text-gray-600">4.8/5 rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section class="w-full py-16 px-4 bg-white">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Apakah Ini Yang Kamu Rasakan?
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-5 bg-red-50 border border-red-100 rounded-xl">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Bingung Mau Usaha Apa</h3>
+                            <p class="text-gray-600 text-sm mt-1">Banyak ide tapi tidak tahu mana yang bisa menghasilkan. Terus monoton di zona nyaman.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4 p-5 bg-red-50 border border-red-100 rounded-xl">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Terbatas Modal</h3>
+                            <p class="text-gray-600 text-sm mt-1">Ingin mulai bisnis tapi dana terbatas. Takut rugi karena salah langkah.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4 p-5 bg-red-50 border border-red-100 rounded-xl">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Penghasilan Pas-pasan</h3>
+                            <p class="text-gray-600 text-sm mt-1">Gaji atau uang saku tidak pernah cukup. Ingin punya sumber penghasilan tambahan.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-gray-500 italic">"Kalau bisa mulai dari nol, kenapa belum mulai?"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION INTRODUCTION -->
+    <section class="w-full py-16 px-4 bg-gradient-to-b from-emerald-50 to-white">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <div class="text-center mb-10">
+                    <span class="text-emerald-600 font-medium text-sm uppercase tracking-wider">Solusi untuk Kamu</span>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mt-3">
+                        E-Book 0 to 1 Jualan Online
+                    </h2>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden">
+                    <img src="https://placehold.co/600x300/059669/ffffff?text=Preview+E-Book" alt="Preview E-Book" class="w-full">
+                    <div class="p-6">
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            Panduan lengkap dan sistematis untuk memulai jualan online dari nol. Dibuat khusus untuk pemula yang ingin membangun bisnis online tanpa modal besar, dengan langkah-langkah praktis yang bisa langsung dijalankan.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-emerald-50 rounded-xl">
+                                <div class="text-2xl font-bold text-emerald-600">80+</div>
+                                <div class="text-sm text-gray-600">Halaman</div>
+                            </div>
+                            <div class="text-center p-4 bg-emerald-50 rounded-xl">
+                                <div class="text-2xl font-bold text-emerald-600">6</div>
+                                <div class="text-sm text-gray-600">Modul Praktis</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU'LL LEARN -->
+    <section class="w-full py-16 px-4 bg-white">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Apa yang Akan Kamu Pelajari
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">01</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Mindset Bisnis Digital</h3>
+                            <p class="text-gray-600 text-sm mt-1">Memahami cara kerja bisnis online dan membangun pola pikir entrepreneur yang tepat.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">02</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Riset Produk & Market</h3>
+                            <p class="text-gray-600 text-sm mt-1">Teknik menemukan produk yang laku dan menentukan target pasar yang tepat.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">03</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Setup Toko Online</h3>
+                            <p class="text-gray-600 text-sm mt-1">Panduan praktis membuat toko di marketplace dan media sosial secara optimal.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">04</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Strategi Marketing</h3>
+                            <p class="text-gray-600 text-sm mt-1">Cara memasarkan produk secara efektif dengan budget minimal.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">05</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Copywriting & Konten</h3>
+                            <p class="text-gray-600 text-sm mt-1">Menulis copy yang menjual dan membuat konten yang menarik pembeli.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <span class="font-display font-bold text-emerald-600">06</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Manajemen Keuangan</h3>
+                            <p class="text-gray-600 text-sm mt-1">Mencatat keuangan, menghitung profit, dan mengembangkan bisnis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON SECTION -->
+    <section class="w-full py-16 px-4 bg-emerald-50">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Sebelum vs Sesudah Membaca
+                </h2>
+                
+                <div class="grid gap-6">
+                    <!-- Before -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="font-semibold text-gray-500">Sebelum</span>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Bingung mau jualan apa
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Takut salah langkah
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Tidak punya strategi jualan
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Penghasilan pas-pasan
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- After -->
+                    <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl p-6 shadow-xl">
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-6 h-6 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="font-semibold text-emerald-100">Sesudah</span>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-white">
+                                <svg class="w-5 h-5 text-emerald-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Punya roadmap bisnis yang jelas
+                            </li>
+                            <li class="flex items-center gap-3 text-white">
+                                <svg class="w-5 h-5 text-emerald-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Tahu langkah pertama yang tepat
+                            </li>
+                            <li class="flex items-center gap-3 text-white">
+                                <svg class="w-5 h-5 text-emerald-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Menguasai strategi marketing praktis
+                            </li>
+                            <li class="flex items-center gap-3 text-white">
+                                <svg class="w-5 h-5 text-emerald-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Siap membangun penghasilan tambahan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="w-full py-16 px-4 bg-white">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Apa Kata Mereka
+                </h2>
+                
+                <div class="space-y-6">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-emerald-200 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="font-display font-bold text-emerald-700 text-lg">R</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1 mb-2">
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <p class="text-gray-700 italic mb-3">"Sebagai mahasiswa, saya bingung mau mulai usaha apa. Setelah baca e-book ini, saya jadi tahu langkah pertama yang harus diambil. Sekarang sudah mulai jualan di marketplace!"</p>
+                                <p class="font-semibold text-gray-900">Rina Sari</p>
+                                <p class="text-sm text-gray-500">Mahasiswa, Jakarta</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-emerald-200 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="font-display font-bold text-emerald-700 text-lg">B</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1 mb-2">
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <p class="text-gray-700 italic mb-3">"Saya sudah coba cari info di YouTube tapi tetap bingung. E-book ini menyusun semuanya dengan sistematis. Praktis banget untuk pemula seperti saya."</p>
+                                <p class="font-semibold text-gray-900">Budi Setiawan</p>
+                                <p class="text-sm text-gray-500">Pegawai, Surabaya</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-emerald-200 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="font-display font-bold text-emerald-700 text-lg">D</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1 mb-2">
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <p class="text-gray-700 italic mb-3">"Investasi yang sangat worth it! Harga e-book terjangkau tapi isinya padat dan langsung bisa dipraktikkan. Bonus templatenya juga sangat membantu."</p>
+                                <p class="font-semibold text-gray-900">Dewi Anggraini</p>
+                                <p class="text-sm text-gray-500">Ibu Rumah Tangga, Bandung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="w-full py-16 px-4 bg-emerald-50">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Langkah Sukses Jualan Online
+                </h2>
+                
+                <div class="space-y-6 pl-6">
+                    <div class="timeline-item relative pl-8 pb-6">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl p-5 shadow-sm border border-emerald-100">
+                            <h3 class="font-semibold text-gray-900 mb-1">Minggu 1-2: Persiapan</h3>
+                            <p class="text-gray-600 text-sm">Bangun mindset, riset market, dan tentukan produk yang akan dijual.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative pl-8 pb-6">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl p-5 shadow-sm border border-emerald-100">
+                            <h3 class="font-semibold text-gray-900 mb-1">Minggu 3-4: Setup</h3>
+                            <p class="text-gray-600 text-sm">Buat toko online, siapkan konten, dan mulai berjualan.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative pl-8 pb-6">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-xl p-5 shadow-sm border border-emerald-100">
+                            <h3 class="font-semibold text-gray-900 mb-1">Minggu 5-6: Marketing</h3>
+                            <p class="text-gray-600 text-sm">Terapkan strategi promosi, bangun brand awareness, dan tingkatkan penjualan.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative pl-8">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-5 shadow-lg">
+                            <h3 class="font-semibold text-white mb-1">Minggu 7+: Scaling</h3>
+                            <p class="text-emerald-100 text-sm">Optimalkan performa, perluas market, dan kembangkan bisnis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BONUS SECTION -->
+    <section class="w-full py-16 px-4 bg-white">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-amber-100 text-amber-700 text-sm font-medium px-4 py-1 rounded-full mb-3">Bonus Spesial</span>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">
+                        Bonus Eksklusif untuk Pembeli
+                    </h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="card-hover bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Template Konten IG</h3>
+                            <p class="text-gray-600 text-sm mt-1">20+ template siap pakai untuk konten Instagram yang menarik pembeli.</p>
+                            <p class="text-amber-600 font-medium text-sm mt-2">Nilai: Rp 75.000</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-hover bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Checklist Harian</h3>
+                            <p class="text-gray-600 text-sm mt-1">Daftar tugas harian untuk memastikan bisnis online terus berkembang.</p>
+                            <p class="text-amber-600 font-medium text-sm mt-2">Nilai: Rp 25.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJECTION HANDLING / FAQ -->
+    <section class="w-full py-16 px-4 bg-emerald-50">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    Pertanyaan yang Sering Diajukan
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <button class="faq-btn w-full text-left p-5 flex items-center justify-between font-semibold text-gray-900" onclick="toggleFaq(this)">
+                            <span>Bukannya ada di YouTube gratis?</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5">
+                            <p class="text-gray-600">Benar, informasi ada di YouTube. Tapi e-book ini menyajikan semuanya secara terstruktur dan sistematis. Tidak perlu habiskan jam-jam untuk mencari dan menyaring informasi. Hemat waktu, langsung praktik.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <button class="faq-btn w-full text-left p-5 flex items-center justify-between font-semibold text-gray-900" onclick="toggleFaq(this)">
+                            <span>Saya benar-benar pemula, cocok tidak?</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5">
+                            <p class="text-gray-600">Sangat cocok! E-book ini ditulis khusus untuk pemula yang belum pernah jualan online sama sekali. Setiap langkah dijelaskan dengan bahasa yang mudah dipahami.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <button class="faq-btn w-full text-left p-5 flex items-center justify-between font-semibold text-gray-900" onclick="toggleFaq(this)">
+                            <span>Format filenya apa?</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5">
+                            <p class="text-gray-600">E-book dalam format PDF yang bisa dibuka di HP, tablet, atau laptop. Bonus template dalam format Canva yang mudah diedit.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <button class="faq-btn w-full text-left p-5 flex items-center justify-between font-semibold text-gray-900" onclick="toggleFaq(this)">
+                            <span>Bagaimana cara mendapatkannya?</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-5 pb-5">
+                            <p class="text-gray-600">Setelah pembayaran berhasil, link download akan langsung dikirim ke email dan WhatsApp dalam beberapa menit. Prosesnya cepat dan otomatis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="harga" class="w-full py-16 px-4 bg-gradient-to-b from-white to-emerald-100">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <div class="text-center mb-10">
+                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                        Investasi untuk Masa Depan
+                    </h2>
+                    <p class="text-gray-600">Mulai perjalanan bisnis online kamu hari ini</p>
+                </div>
+                
+                <!-- Scarcity Banner -->
+                <div class="bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-4 mb-6 text-center text-white">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span class="font-semibold">Harga Akan Naik Segera</span>
+                    </div>
+                    <p class="text-sm text-red-100">Promo terbatas untuk 100 pembeli pertama</p>
+                </div>
+                
+                <!-- Pricing Card -->
+                <div class="bg-white rounded-2xl shadow-xl border-2 border-emerald-200 overflow-hidden">
+                    <div class="bg-emerald-600 text-white text-center py-3">
+                        <span class="font-medium">Paket Lengkap E-Book</span>
+                    </div>
+                    
+                    <div class="p-6">
+                        <!-- Value Stack -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="text-gray-600">E-Book 0 to 1 Jualan Online</span>
+                                <span class="text-gray-900 font-medium">Rp 150.000</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Bonus: Template Konten IG</span>
+                                <span class="text-gray-900 font-medium">Rp 75.000</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Bonus: Checklist Harian</span>
+                                <span class="text-gray-900 font-medium">Rp 25.000</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-semibold text-gray-900">Total Value</span>
+                                <span class="font-bold text-gray-900">Rp 250.000</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Display -->
+                        <div class="text-center py-6 bg-emerald-50 rounded-xl mb-6">
+                            <p class="text-gray-500 text-sm mb-1">Harga Normal</p>
+                            <p class="text-2xl text-gray-400 price-strike inline-block mb-2">Rp 150.000</p>
+                            <p class="text-emerald-600 font-medium">Harga Hari Ini</p>
+                            <p class="text-5xl font-bold text-emerald-700 font-display">Rp 49.000</p>
+                            <p class="text-gray-500 text-sm mt-2">Hemat Rp 101.000</p>
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <a href="#" class="btn-cta block w-full text-center py-4 rounded-xl font-semibold text-lg shadow-lg">
+                            Beli Sekarang
+                        </a>
+                        
+                        <!-- Trust Elements -->
+                        <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                            <div class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                <span>Pembayaran Aman</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <span>Akses Instan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="w-full py-16 px-4 bg-emerald-100">
+        <div class="w-full max-w-2xl mx-auto">
+            <div class="reveal">
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-emerald-200 text-center">
+                    <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="font-display text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                        Jaminan Kepuasan 7 Hari
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Jika setelah membaca dan mempraktikkan materi dalam e-book ini kamu merasa tidak mendapat nilai, kami akan mengembalikan pembayaranmu secara penuh. Tanpa pertanyaan rumit, proses refund mudah via WhatsApp.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="w-full py-16 px-4 bg-gradient-to-b from-emerald-600 to-emerald-800 text-white">
+        <div class="w-full max-w-2xl mx-auto text-center">
+            <div class="reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold mb-4">
+                    Saatnya Ambil Langkah Pertama
+                </h2>
+                <p class="text-emerald-100 mb-8 leading-relaxed">
+                    Jangan biarkan keraguan menghentikanmu. Mulai bangun bisnis online hari ini dengan panduan yang tepat.
+                </p>
+                
+                <a href="#harga" class="inline-block bg-white text-emerald-700 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-emerald-50 transition-all">
+                    Dapatkan E-Book Sekarang
+                </a>
+                
+                <p class="text-emerald-200 text-sm mt-4">
+                    Akses instan setelah pembayaran
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COPYRIGHT -->
+    <div class="w-full py-6 px-4 bg-emerald-900 text-center">
+        <p class="text-emerald-300 text-sm">
+            2024 0 to 1 Jualan Online. Hak cipta dilindungi.
+        </p>
+    </div>
+
+    <!-- STICKY CTA MOBILE -->
+    <div class="sticky-cta bg-white border-t border-gray-200 p-4 shadow-2xl md:hidden" id="stickyCta">
+        <div class="flex items-center justify-between gap-4">
+            <div>
+                <p class="text-xs text-gray-500">Harga Promo</p>
+                <p class="text-xl font-bold text-emerald-600 font-display">Rp 49.000</p>
+            </div>
+            <a href="#harga" class="btn-cta px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap">
+                Beli Sekarang
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+        
+        // Sticky CTA Visibility
+        const stickyCta = document.getElementById('stickyCta');
+        let lastScroll = 0;
+        
+        const handleStickyCta = () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 500) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+            
+            lastScroll = currentScroll;
+        };
+        
+        window.addEventListener('scroll', handleStickyCta);
+        
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Respect reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.animate-fade-in-up, .animate-float').forEach(el => {
+                el.style.animation = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
